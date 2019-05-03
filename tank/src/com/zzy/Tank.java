@@ -18,7 +18,7 @@ public class Tank {
 	//方向
 	private Dir dir = Dir.DOWN;
 	//速度
-	private static final int SPEED = 1;
+	private static final int SPEED = 5;
 	public static int WIDTH = ResourceMgr.tankD.getWidth();
 	public static int HEIGHT = ResourceMgr.tankD.getHeight();
 	//是否活着
@@ -87,7 +87,10 @@ public class Tank {
 			break;
 		}
 		//出边界改变方向为相反方向继续运动
-		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+		if(x < 0 || 
+		   y-HEIGHT/2 < 0 || 
+		   x > TankFrame.GAME_WIDTH-WIDTH || 
+		   y > TankFrame.GAME_HEIGHT-HEIGHT) {
 			switch (dir) {
 			case LEFT:
 				dir=Dir.RIGHT;

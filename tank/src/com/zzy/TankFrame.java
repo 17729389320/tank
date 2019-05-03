@@ -63,12 +63,13 @@ public class TankFrame extends Frame{
 		g.setColor(Color.WHITE);
 		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
 		g.drawString("敌人的数量:" + tanks.size(), 10, 80);
+		if(!myTank.isLiving())g.drawString("按c键复活", 10, 100);
 		g.setColor(c);
 		//画出主战坦克
 		myTank.setGroup(Group.GOOD);
 		if(myTank.isLiving()) {
 			myTank.paint(g);
-		}
+		} 
 		//画出主战坦克的子弹
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
@@ -139,6 +140,11 @@ public class TankFrame extends Frame{
 				break;
 			case KeyEvent.VK_ALT:
 				myTank.fire();
+				break;
+			case KeyEvent.VK_C:
+				if(!myTank.isLiving()) {
+					myTank.setLiving(true);
+				}
 				break;
 			default:
 				break;

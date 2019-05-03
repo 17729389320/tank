@@ -14,13 +14,12 @@ public class Main {
 			Thread.sleep(50);
 			tf.repaint();
 		}
-		
 	}
 
 	private static void randomCreteBadTank(TankFrame tf) {
 		Random random = new Random();
 		Dir d = Dir.DOWN;
-		for(int i=0; i<8; i++) {
+		for(int i=0; i<10; i++) {
 			int dir = random.nextInt(4);
 			switch (dir) {
 			case 0:
@@ -38,7 +37,7 @@ public class Main {
 			default:
 				break;
 			}
-			tf.tanks.add(new Tank(random.nextInt(100)+i*80, random.nextInt(500) , d, tf, Group.BAD));
+			tf.tanks.add(new Tank(random.nextInt(600)+100, random.nextInt(400)+100 , d, tf, Group.BAD));
 		}
 	}
 }
