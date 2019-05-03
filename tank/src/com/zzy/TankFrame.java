@@ -25,6 +25,7 @@ public class TankFrame extends Frame{
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 //	Bullet b = new Bullet(200,200,Dir.DOWN,this);
 	List<Bullet> bullets = new ArrayList<>();
+	Explode e = new Explode(100, 100, this);
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
@@ -64,11 +65,15 @@ public class TankFrame extends Frame{
 		g.drawString("敌人的数量:" + tanks.size(), 10, 80);
 		g.setColor(c);
 		//画出主战坦克
-		myTank.paint(g);
+		myTank.setGroup(Group.GOOD);
+		if(myTank.isLiving()) {
+			myTank.paint(g);
+		}
 		//画出主战坦克的子弹
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
 		}
+		//画出敌人坦克
 		for (int i = 0; i < tanks.size(); i++) {
 			tanks.get(i).paint(g);
 		}
@@ -77,6 +82,14 @@ public class TankFrame extends Frame{
 			for(int j = 0; j<tanks.size(); j++) 
 				bullets.get(i).collideWith(tanks.get(j));
 		}
+		//主角光环，敌人子弹与主战坦克做碰撞检测
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).collideWith(myTank);
+		}
+		
+		
+		//画出爆炸效果
+//		e.paint(g);
 	}
 
 
@@ -142,8 +155,6 @@ public class TankFrame extends Frame{
 			}else {
 				myTank.setMoving(false);
 			}
-			 
-			
 			
 		}
 		

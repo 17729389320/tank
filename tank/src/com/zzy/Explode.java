@@ -12,7 +12,8 @@ public class Explode {
 	TankFrame tf = null;
 	
 	private int step = 0;
-	
+	public Explode() {
+	}
 	public Explode(int x, int y, TankFrame tf) {
 		this.x = x;
 		this.y = y;
@@ -21,8 +22,32 @@ public class Explode {
 	
 	
 
+	public int getX() {
+		return x;
+	}
+
+
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+
+
+	public int getY() {
+		return y;
+	}
+
+
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+
+
 	public void paint(Graphics g) {
-		
+		System.out.println("x"+x+"===============y"+y);
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		
 		if(step >= ResourceMgr.explodes.length) 
