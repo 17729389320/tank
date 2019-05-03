@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class TankFrame extends Frame{
 	Dir dir=Dir.LEFT;
-	Tank myTank = new Tank(200, 400, Dir.DOWN,this);
+	Tank myTank = new Tank(200, 400, Dir.DOWN,this, Group.GOOD);
 	List<Tank> tanks = new ArrayList<>();
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-	Bullet b = new Bullet(200,200,Dir.DOWN,this);
+//	Bullet b = new Bullet(200,200,Dir.DOWN,this);
 	List<Bullet> bullets = new ArrayList<>();
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);

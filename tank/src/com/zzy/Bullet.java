@@ -24,12 +24,13 @@ public class Bullet {
 	//是否活着，删除子弹
 	private boolean living = true;
 	TankFrame tf = null;
-	
-	public Bullet(int x, int y, Dir dir,TankFrame tf) {
+	private Group group = Group.BAD;
+	public Bullet(int x, int y, Dir dir,TankFrame tf,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.tf = tf;
+		this.group=group;
 	}
 	
 	public void paint(Graphics g) {
@@ -90,6 +91,8 @@ public class Bullet {
 	
 	//碰撞检测
 	public void collideWith(Tank tank) {
+		//如果是同一个组，无需做碰撞检测；
+		if(this.group == tank.getGroup()) return;
 		Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 		if(rect1.intersects(rect2)) {
@@ -117,4 +120,13 @@ public class Bullet {
 	public static void setHEIGHT(int hEIGHT) {
 		HEIGHT = hEIGHT;
 	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+	
 }

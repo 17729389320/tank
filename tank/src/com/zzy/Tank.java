@@ -1,7 +1,7 @@
 package com.zzy;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 
 
@@ -17,13 +17,22 @@ public class Tank {
 	//方向
 	private Dir dir = Dir.DOWN;
 	//速度
-	private static final int SPEED = 5;
+	private static final int SPEED = 1;
 	public static int WIDTH = ResourceMgr.tankD.getWidth();
 	public static int HEIGHT = ResourceMgr.tankD.getHeight();
 	//是否活着
 	private boolean living = true;
-	private boolean moving = false;
-	
+	private boolean moving = true;
+	private Group group = Group.BAD;
+	private Random random = new Random();
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -96,12 +105,13 @@ public class Tank {
 	}
 
 
-	public Tank(int x, int y, Dir dir,TankFrame tf) {
+	public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.tf=tf;
+		this.group=group;
 	}
 
 	public void paint(Graphics g) {
@@ -151,6 +161,7 @@ public class Tank {
 		default:
 			break;
 		}
+//		if(random.nextInt(10) > 8) this.fire();
 		
 	}
 	//发射子弹
@@ -160,7 +171,7 @@ public class Tank {
 //		tf.bullets.add(new Bullet(this.x+WIDTH/2-Bullet.getWIDTH()/2, this.y+HEIGHT/2-Bullet.getHEIGHT()/2, this.dir, this.tf));
 		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
 		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-		tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
+		tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf,this.group));
 	}
 
 	public void die() {
