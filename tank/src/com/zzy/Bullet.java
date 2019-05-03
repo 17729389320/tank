@@ -1,7 +1,7 @@
 package com.zzy;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 
@@ -37,6 +37,9 @@ public class Bullet {
 //		g.setColor(Color.RED);
 //		g.fillOval(x, y, WIDTH, HEIGHT);
 //		g.setColor(c);
+//		if(!living) {
+//			tf.bullets.remove(this);			 
+//		}			 
 		switch (dir) {
 		case LEFT:
 			g.drawImage(ResourceMgr.bulletL, x, y, null);
@@ -84,6 +87,22 @@ public class Bullet {
 			tf.bullets.remove(this);
 		}
 	}
+	
+	//碰撞检测
+	public void collideWith(Tank tank) {
+		Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+		if(rect1.intersects(rect2)) {
+			tank.die();
+			this.die();
+		}
+
+ 	}
+
+ 	private void die() {
+		this.living = false;
+	}
+ 	 
 	public static int getWIDTH() {
 		return WIDTH;
 	}
