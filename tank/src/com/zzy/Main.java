@@ -7,6 +7,7 @@ import java.util.Random;
  *坦克入口类
  */
 public class Main {
+	static Random random = new Random();
 	public static void main(String[] args) throws InterruptedException {
 		TankFrame tf = new TankFrame();
 		randomCreteBadTank(tf);
@@ -17,7 +18,7 @@ public class Main {
 	}
 
 	private static void randomCreteBadTank(TankFrame tf) {
-		Random random = new Random();
+		
 		Dir d = Dir.DOWN;
 		for(int i=0; i<10; i++) {
 			int dir = random.nextInt(4);
@@ -37,7 +38,7 @@ public class Main {
 			default:
 				break;
 			}
-			tf.tanks.add(new Tank(random.nextInt(600)+100, random.nextInt(400)+100 , d, tf, Group.BAD));
+			tf.tanks.add(new Tank(random.nextInt(600)+200, random.nextInt(400)+200 , d, tf, Group.BAD));
 		}
 	}
 }

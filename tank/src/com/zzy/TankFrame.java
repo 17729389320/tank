@@ -64,6 +64,7 @@ public class TankFrame extends Frame{
 		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
 		g.drawString("敌人的数量:" + tanks.size(), 10, 80);
 		if(!myTank.isLiving())g.drawString("按c键复活", 10, 100);
+		if(tanks.size()==0)g.drawString("游戏结束", 10, 120);
 		g.setColor(c);
 		//画出主战坦克
 		myTank.setGroup(Group.GOOD);
@@ -138,7 +139,7 @@ public class TankFrame extends Frame{
 			case KeyEvent.VK_DOWN:
 				bD=false;
 				break;
-			case KeyEvent.VK_ALT:
+			case KeyEvent.VK_X:
 				myTank.fire();
 				break;
 			case KeyEvent.VK_C:
