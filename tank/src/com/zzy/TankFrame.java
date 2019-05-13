@@ -26,6 +26,8 @@ public class TankFrame extends Frame{
 //	Bullet b = new Bullet(200,200,Dir.DOWN,this);
 	List<Bullet> bullets = new ArrayList<>();
 	Explode e = new Explode(100, 100, this);
+	
+	List<Explode> explodes = new ArrayList<>();
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
@@ -78,6 +80,11 @@ public class TankFrame extends Frame{
 		//画出敌人坦克
 		for (int i = 0; i < tanks.size(); i++) {
 			tanks.get(i).paint(g);
+		}
+		
+		
+		for (int i = 0; i < explodes.size(); i++) {
+			explodes.get(i).paint(g);
 		}
 //		打掉敌人坦克，需要碰撞检测过程，两个list每一颗子弹每一个坦克都要做碰撞检测，如果撞上了，坦克死，子弹死
 		for(int i=0; i<bullets.size(); i++) {

@@ -87,7 +87,7 @@ public class Tank {
 			break;
 		}
 		//出边界改变方向为相反方向继续运动
-		if(x < 0 || 
+		/*if(x < 0 || 
 		   y-HEIGHT/2 < 0 || 
 		   x > TankFrame.GAME_WIDTH-WIDTH || 
 		   y > TankFrame.GAME_HEIGHT-HEIGHT) {
@@ -107,10 +107,25 @@ public class Tank {
 			default:
 				break;
 			}
-		}
-		//敌机随机发射子弹
-		if(random.nextInt(10) > 8&&this.getGroup()==Group.BAD) this.fire();
+		}*/
 		
+		if(this.group == Group.BAD && random.nextInt(100) > 95)
+			randomDir();
+		//敌机随机发射子弹
+		if(random.nextInt(100) > 95&&this.getGroup()==Group.BAD) this.fire();
+		
+		boundsCheck();
+		
+	}
+	private void boundsCheck() {
+		if(this.x < 2) x = 2;
+		if (this.y < 28) y = 28;
+		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = TankFrame.GAME_WIDTH - Tank.WIDTH -2;
+		if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT -Tank.HEIGHT -2;
+	}
+	
+	private void randomDir() {
+ 		this.dir = Dir.values()[random.nextInt(4)];
 	}
 	//发射子弹
 	public void fire() {

@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
  * @author zhaozhanyang
  *图片管理类
  */
-public class ResourceMgr {
+public class ResourceMgr { 
 	public static BufferedImage tankL, tankU, tankR, tankD; 
 	public static BufferedImage bulletL, bulletU, bulletR, bulletD; 
 	public static BufferedImage[] explodes = new BufferedImage[16];
@@ -17,6 +17,7 @@ public class ResourceMgr {
  	
 	static {
 		try {
+			System.out.println(99);
 			tankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankL.gif"));
 			tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
 			tankR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankR.gif"));

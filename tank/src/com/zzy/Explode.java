@@ -44,15 +44,12 @@ public class Explode {
 		this.y = y;
 	}
 
-
-
 	public void paint(Graphics g) {
-		System.out.println("x"+x+"===============y"+y);
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-		
-		if(step >= ResourceMgr.explodes.length) 
-			step = 0;
-	}
+ 		if(step >= ResourceMgr.explodes.length) 		 
+ 		tf.explodes.remove(this);
+
+ 	}		
 	
 	
 
