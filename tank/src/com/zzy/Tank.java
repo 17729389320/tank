@@ -15,9 +15,9 @@ import java.util.Random;
  */
 public class Tank {
 	//位置
-	private int x, y;
+	int x, y;
 	//方向
-	private Dir dir = Dir.DOWN;
+	Dir dir = Dir.DOWN;
 	//速度
 	private static final int SPEED = 5;
 	public static int WIDTH = ResourceMgr.tankD.getWidth();
@@ -25,10 +25,12 @@ public class Tank {
 	//是否活着
 	private boolean living = true;
 	private boolean moving = true;
-	private Group group = Group.BAD;
+	Group group = Group.BAD;
 	private Random random = new Random();
 	Rectangle rect = new Rectangle();
-
+	TankFrame tf = null;
+	
+	FireStrategy fs=new DefaultFireStrategy();
 	public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
 		this.x = x;
 		this.y = y;
@@ -137,13 +139,11 @@ public class Tank {
 	}
 	//发射子弹
 	public void fire() {
-		if(!living) return;
-//		tf.b=new Bullet(this.x,this.y,this.dir);
-//		tf.bullets.add(new Bullet(this.x, this.y, this.dir,tf));
-//		tf.bullets.add(new Bullet(this.x+WIDTH/2-Bullet.getWIDTH()/2, this.y+HEIGHT/2-Bullet.getHEIGHT()/2, this.dir, this.tf));
-		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-		tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf,this.group));
+//		if(!living) return;
+//		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+//		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+//		tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf,this.group));
+		fs.fire(this);
 	}
 
 	public void die(int x,int y) {
@@ -212,7 +212,7 @@ public class Tank {
 		return SPEED;
 	}
 
-	private TankFrame tf = null;
+
 	
 	
 	public boolean isMoving() {
