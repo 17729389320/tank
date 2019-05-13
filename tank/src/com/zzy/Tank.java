@@ -2,6 +2,7 @@ package com.zzy;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 
@@ -26,6 +27,7 @@ public class Tank {
 	private boolean moving = true;
 	private Group group = Group.BAD;
 	private Random random = new Random();
+	Rectangle rect = new Rectangle();
 
 	public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
 		this.x = x;
@@ -33,6 +35,10 @@ public class Tank {
 		this.dir = dir;
 		this.tf=tf;
 		this.group=group;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 
 	public void paint(Graphics g) {
@@ -115,6 +121,8 @@ public class Tank {
 		if(random.nextInt(100) > 95&&this.getGroup()==Group.BAD) this.fire();
 		
 		boundsCheck();
+		rect.x = this.x;
+		rect.y = this.y;
 		
 	}
 	private void boundsCheck() {
