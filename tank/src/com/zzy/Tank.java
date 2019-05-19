@@ -34,14 +34,14 @@ public class Tank {
 	Group group = Group.BAD;
 	private Random random = new Random();
 	Rectangle rect = new Rectangle();
-	TankFrame tf = null;
+	GameModel gm;
 	
 	FireStrategy fs=new DefaultFireStrategy();
-	public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
+	public Tank(int x, int y, Dir dir,Group group ,GameModel gm) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.tf=tf;
+		this.gm=gm;
 		this.group=group;
 		rect.x = this.x;
 		rect.y = this.y;
@@ -58,8 +58,9 @@ public class Tank {
 //			g.setColor(c);
 //		}
 		if(!living) {
-			tf.tanks.remove(this);
-			tf.e.paint(g);
+			gm.tanks.remove(this);
+//			tf.tanks.remove(this);
+//			tf.e.paint(g);
 		}
 		switch (dir) {
 		case LEFT:
@@ -154,8 +155,8 @@ public class Tank {
 
 	public void die(int x,int y) {
 		this.living = false;
-		tf.e.setX(x);
-		tf.e.setY(y);
+//		tf.e.setX(x);
+//		tf.e.setY(y);
 	}
 
 	public Group getGroup() {
@@ -206,13 +207,7 @@ public class Tank {
 		this.living = living;
 	}
 
-	public TankFrame getTf() {
-		return tf;
-	}
-
-	public void setTf(TankFrame tf) {
-		this.tf = tf;
-	}
+ 
 
 	public static int getSpeed() {
 		return SPEED;

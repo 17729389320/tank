@@ -20,13 +20,14 @@ import java.util.List;
  */
 public class TankFrame extends Frame{
 	Dir dir=Dir.LEFT;
-	Tank myTank = new Tank(200, 400, Dir.DOWN,this, Group.GOOD);
-	List<Tank> tanks = new ArrayList<>();
+//	Tank myTank = new Tank(200, 400, Dir.DOWN,this, Group.GOOD);
+//	List<Tank> tanks = new ArrayList<>();
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 //	Bullet b = new Bullet(200,200,Dir.DOWN,this);
 	List<Bullet> bullets = new ArrayList<>();
-	Explode e = new Explode(100, 100, this);
-	List<Explode> explodes = new ArrayList<>();
+//	Explode e = new Explode(100, 100, this);
+//	List<Explode> explodes = new ArrayList<>();
+	GameModel gm = new GameModel();
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
@@ -60,44 +61,11 @@ public class TankFrame extends Frame{
 	}
 	@Override
 	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.WHITE);
-		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
-		g.drawString("敌人的数量:" + tanks.size(), 10, 80);
-		if(!myTank.isLiving())g.drawString("按c键复活", 10, 100);
-		if(tanks.size()==0)g.drawString("游戏结束", 10, 120);
-		g.setColor(c);
-		//画出主战坦克
-		myTank.setGroup(Group.GOOD);
-		if(myTank.isLiving()) {
-			myTank.paint(g);
-		} 
-		//画出主战坦克的子弹
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).paint(g);
-		}
-		//画出敌人坦克
-		for (int i = 0; i < tanks.size(); i++) {
-			tanks.get(i).paint(g);
-		}
-		
-		
-		for (int i = 0; i < explodes.size(); i++) {
-			explodes.get(i).paint(g);
-		}
-//		打掉敌人坦克，需要碰撞检测过程，两个list每一颗子弹每一个坦克都要做碰撞检测，如果撞上了，坦克死，子弹死
-		for(int i=0; i<bullets.size(); i++) {
-			for(int j = 0; j<tanks.size(); j++) 
-				bullets.get(i).collideWith(tanks.get(j));
-		}
-		//主角光环，敌人子弹与主战坦克做碰撞检测
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).collideWith(myTank);
-		}
+		 
 		
 		
 		//画出爆炸效果
-//		e.paint(g);
+		gm.paint(g);
 	}
 
 
@@ -146,11 +114,11 @@ public class TankFrame extends Frame{
 				bD=false;
 				break;
 			case KeyEvent.VK_X:
-				myTank.fire();
+				gm.getMainTank().fire();
 				break;
 			case KeyEvent.VK_C:
-				if(!myTank.isLiving()) {
-					myTank.setLiving(true);
+				if(!gm.getMainTank().isLiving()) {
+					gm.getMainTank().setLiving(true);
 				}
 				break;
 			default:
@@ -160,13 +128,13 @@ public class TankFrame extends Frame{
 		}
 		private void setMainTankDir() {
 			if(bL||bR||bD||bU) {
-				myTank.setMoving(true);
-				if(bL)myTank.setDir(Dir.LEFT);
-				if(bR)myTank.setDir(Dir.RIGHT);
-				if(bD)myTank.setDir(Dir.DOWN);
-				if(bU)myTank.setDir(Dir.UP);
+				gm.getMainTank().setMoving(true);
+				if(bL)gm.getMainTank().setDir(Dir.LEFT);
+				if(bR)gm.getMainTank().setDir(Dir.RIGHT);
+				if(bD)gm.getMainTank().setDir(Dir.DOWN);
+				if(bU)gm.getMainTank().setDir(Dir.UP);
 			}else {
-				myTank.setMoving(false);
+				gm.getMainTank().setMoving(false);
 			}
 			
 		}

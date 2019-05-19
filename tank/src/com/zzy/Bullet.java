@@ -23,23 +23,23 @@ public class Bullet {
 	private Dir dir;
 	//是否活着，删除子弹
 	private boolean living = true;
-	TankFrame tf = null;
+	GameModel gm = null;
 	private Group group = Group.BAD;
 	
 	
 	Rectangle rect = new Rectangle();
-	public Bullet(int x, int y, Dir dir,TankFrame tf,Group group) {
+	public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.tf = tf;
+		this.gm = gm;
 		this.group=group;
 		
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		tf.bullets.add(this);
+		gm.bullets.add(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -96,7 +96,7 @@ public class Bullet {
 	private void removeBullet() {
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
 		if(!living) {
-			tf.bullets.remove(this);
+			gm.bullets.remove(this);
 		}
 	}
 	
@@ -111,6 +111,9 @@ public class Bullet {
 		if(rect.intersects(tank.rect)) {
 			tank.die(tank.getX(),tank.getY());
 			this.die();
+			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+			gm.explodes.add(new Explode(eX, eY, gm));	 
 		}
 
  	}

@@ -10,7 +10,7 @@ public class Main {
 	static Random random = new Random();
 	public static void main(String[] args) throws InterruptedException {
 		TankFrame tf = new TankFrame();
-		randomCreteBadTank(tf);
+//		randomCreteBadTank(tf);
 		while(true) {
 			Thread.sleep(50);
 			tf.repaint();
@@ -38,7 +38,7 @@ public class Main {
 			default:
 				break;
 			}
-			tf.tanks.add(new Tank(random.nextInt(600)+200, random.nextInt(400)+200 , d, tf, Group.BAD));
+//			tf.tanks.add(new Tank(random.nextInt(600)+200, random.nextInt(400)+200 , d, tf, Group.BAD));
 		}
 	}
 }
