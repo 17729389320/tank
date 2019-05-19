@@ -23,23 +23,21 @@ public class Bullet  extends GameObject{
 	private Dir dir;
 	//是否活着，删除子弹
 	private boolean living = true;
-	GameModel gm = null;
 	public  Group group = Group.BAD;
 	
 	
 	public Rectangle rect = new Rectangle();
-	public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
+	public Bullet(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.gm = gm;
 		this.group=group;
 		
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		gm.add(this);
+		GameModel.getInstance().add(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -96,25 +94,10 @@ public class Bullet  extends GameObject{
 	private void removeBullet() {
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
 		if(!living) {
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 		}
 	}
-	
-	//碰撞检测
-	public boolean collideWith(Tank tank) {
-		//如果是同一个组，无需做碰撞检测； 
-		if(this.group == tank.getGroup()) return false;
-		if(rect.intersects(tank.rect)) {
-			tank.die(tank.getX(),tank.getY());
-			this.die();
-			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.add(new Explode(eX, eY, gm));	 
-			return true;
-		}
-		return false;
-
- 	}
+	 
 
  	public void die() {
 		this.living = false;

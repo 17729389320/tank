@@ -18,6 +18,7 @@ public class Tank extends GameObject {
 	int x, y;
 	//方向
 	Dir dir = Dir.DOWN;
+	int oldX, oldY;
 	//速度
 	private static final int SPEED = 5;
 //	public static int WIDTH = ResourceMgr.tankD.getWidth();
@@ -34,19 +35,32 @@ public class Tank extends GameObject {
 	private Random random = new Random();
 	public Rectangle rect = new Rectangle();
 	
-	GameModel gm;
 	
 	FireStrategy fs=new DefaultFireStrategy();
-	public Tank(int x, int y, Dir dir,Group group ,GameModel gm) {
+	public Tank(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.gm=gm;
 		this.group=group;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		if (group == Group.GOOD) {
+			String goodFSName = (String) PropertyMgr.get("goodFS");
+
+			try {
+				fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			fs = new DefaultFireStrategy();
+		}
+		
+		
+		GameModel.getInstance().add(this);
 	}
 
 	public void paint(Graphics g) {
@@ -58,7 +72,7 @@ public class Tank extends GameObject {
 //			g.setColor(c);
 //		}
 		if(!living) {
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 //			tf.tanks.remove(this);
 //			tf.e.paint(g);
 		}
@@ -83,7 +97,11 @@ public class Tank extends GameObject {
 		
 	}
 
+
 	private void move() {
+		//记录移动之前的位置
+		oldX = x;
+		oldY = y;
 		if(!moving) return ;
 		switch (dir) {
 		case LEFT:
@@ -257,6 +275,7 @@ public class Tank extends GameObject {
 	}
 
 	public void back() {
-		
+		x = oldX;
+		y = oldY;
 	}
 }

@@ -15,7 +15,7 @@ public class Wall extends GameObject {
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		
+		//初始化
 		this.rect = new Rectangle(x, y, w, h);
 	}
 

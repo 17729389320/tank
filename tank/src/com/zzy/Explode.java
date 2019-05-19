@@ -9,15 +9,14 @@ public class Explode  extends GameObject{
 	private int x, y;
 	
 	private boolean living = true;
-	GameModel gm = null;
 	
 	private int step = 0;
 	public Explode() {
 	}
-	public Explode(int x, int y, GameModel gm) {
+	public Explode(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.gm = gm;
+		GameModel.getInstance().add(this);
 	}
 	
 	
@@ -47,8 +46,7 @@ public class Explode  extends GameObject{
 	public void paint(Graphics g) {
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
  		if(step >= ResourceMgr.explodes.length) 		 
- 			gm.remove(this);
-
+ 			GameModel.getInstance().remove(this);
  	}		
 	
 	

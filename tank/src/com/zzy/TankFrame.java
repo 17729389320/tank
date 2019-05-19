@@ -27,7 +27,7 @@ public class TankFrame extends Frame{
 	List<Bullet> bullets = new ArrayList<>();
 //	Explode e = new Explode(100, 100, this);
 //	List<Explode> explodes = new ArrayList<>();
-	GameModel gm = new GameModel();
+	GameModel gm = GameModel.getInstance();
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
