@@ -13,7 +13,7 @@ import java.util.Random;
  * @author zhaozhanyang
  *坦克实体类
  */
-public class Tank {
+public class Tank extends GameObject {
 	//位置
 	int x, y;
 	//方向
@@ -27,13 +27,13 @@ public class Tank {
  	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 	
 	
-	
 	//是否活着
 	private boolean living = true;
 	private boolean moving = true;
 	Group group = Group.BAD;
 	private Random random = new Random();
-	Rectangle rect = new Rectangle();
+	public Rectangle rect = new Rectangle();
+	
 	GameModel gm;
 	
 	FireStrategy fs=new DefaultFireStrategy();
@@ -58,7 +58,7 @@ public class Tank {
 //			g.setColor(c);
 //		}
 		if(!living) {
-			gm.tanks.remove(this);
+			gm.remove(this);
 //			tf.tanks.remove(this);
 //			tf.e.paint(g);
 		}
@@ -134,16 +134,29 @@ public class Tank {
 		rect.y = this.y;
 		
 	}
-	private void boundsCheck() {
-		if(this.x < 2) x = 2;
-		if (this.y < 28) y = 28;
-		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = TankFrame.GAME_WIDTH - Tank.WIDTH -2;
-		if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT -Tank.HEIGHT -2;
-	}
+ 
 	
 	private void randomDir() {
  		this.dir = Dir.values()[random.nextInt(4)];
 	}
+	
+	private void boundsCheck() {
+		if (this.x < 2)
+			x = 2;
+		if (this.y < 28)
+			y = 28;
+		if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2)
+			x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+		if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2)
+			y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+	}
+
+ 	public void die() {
+		this.living = false;
+	}
+
+	
+	
 	//发射子弹
 	public void fire() {
 //		if(!living) return;
@@ -231,7 +244,19 @@ public class Tank {
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
+	public void stop() {
+		moving = false;
+	}
 	
-	
+	public Rectangle getRect() {
+		return rect;
+	}
 
+	public void setRect(Rectangle rect) {
+		this.rect = rect;
+	}
+
+	public void back() {
+		
+	}
 }

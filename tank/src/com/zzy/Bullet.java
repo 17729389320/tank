@@ -10,7 +10,7 @@ import java.awt.Rectangle;
  * @author zhaozhanyang
  *子弹实体类
  */
-public class Bullet {
+public class Bullet  extends GameObject{
 	//速度
 	private static final int SPEED = 10;
 	//大小
@@ -24,10 +24,10 @@ public class Bullet {
 	//是否活着，删除子弹
 	private boolean living = true;
 	GameModel gm = null;
-	private Group group = Group.BAD;
+	public  Group group = Group.BAD;
 	
 	
-	Rectangle rect = new Rectangle();
+	public Rectangle rect = new Rectangle();
 	public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
 		this.x = x;
 		this.y = y;
@@ -39,7 +39,7 @@ public class Bullet {
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		gm.bullets.add(this);
+		gm.add(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -96,29 +96,27 @@ public class Bullet {
 	private void removeBullet() {
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
 		if(!living) {
-			gm.bullets.remove(this);
+			gm.remove(this);
 		}
 	}
 	
 	//碰撞检测
-	public void collideWith(Tank tank) {
-		//如果是同一个组，无需做碰撞检测；
-		if(this.group == tank.getGroup()) return;
-		//TODO: 用一个rect来记录子弹的位置
-//		Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-//		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-//		if(rect1.intersects(rect2)) {
+	public boolean collideWith(Tank tank) {
+		//如果是同一个组，无需做碰撞检测； 
+		if(this.group == tank.getGroup()) return false;
 		if(rect.intersects(tank.rect)) {
 			tank.die(tank.getX(),tank.getY());
 			this.die();
 			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
 			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.explodes.add(new Explode(eX, eY, gm));	 
+			gm.add(new Explode(eX, eY, gm));	 
+			return true;
 		}
+		return false;
 
  	}
 
- 	private void die() {
+ 	public void die() {
 		this.living = false;
 	}
  	 
