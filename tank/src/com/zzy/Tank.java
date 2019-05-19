@@ -20,8 +20,14 @@ public class Tank {
 	Dir dir = Dir.DOWN;
 	//速度
 	private static final int SPEED = 5;
-	public static int WIDTH = ResourceMgr.tankD.getWidth();
-	public static int HEIGHT = ResourceMgr.tankD.getHeight();
+//	public static int WIDTH = ResourceMgr.tankD.getWidth();
+//	public static int HEIGHT = ResourceMgr.tankD.getHeight();
+	
+	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
+ 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
+	
+	
+	
 	//是否活着
 	private boolean living = true;
 	private boolean moving = true;
@@ -45,28 +51,28 @@ public class Tank {
 
 	public void paint(Graphics g) {
 
-		if(this.group==Group.GOOD) {
-			Color c = g.getColor();
-			g.setColor(Color.YELLOW);
-			g.fillRect(x, y, 50, 50);
-			g.setColor(c);
-		}
+//		if(this.group==Group.GOOD) {
+//			Color c = g.getColor();
+//			g.setColor(Color.YELLOW);
+//			g.fillRect(x, y, 50, 50);
+//			g.setColor(c);
+//		}
 		if(!living) {
 			tf.tanks.remove(this);
 			tf.e.paint(g);
 		}
 		switch (dir) {
 		case LEFT:
-			g.drawImage(ResourceMgr.tankL, x, y, null);
+			g.drawImage(this.group == Group.GOOD? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
 			break;
 		case UP:
-			g.drawImage(ResourceMgr.tankU, x, y, null);
+			g.drawImage(this.group == Group.GOOD? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
 			break;
 		case RIGHT:
-			g.drawImage(ResourceMgr.tankR, x, y, null);
+			g.drawImage(this.group == Group.GOOD? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
 			break;
 		case DOWN:
-			g.drawImage(ResourceMgr.tankD, x, y, null);
+			g.drawImage(this.group == Group.GOOD? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
 			break;
 		default:
 			break;
