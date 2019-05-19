@@ -17,8 +17,6 @@ public class Bullet  extends GameObject{
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 //	private static int WIDTH = 30, HEIGHT = 30;
-	//位置
-	private int x, y;
 	//方向
 	private Dir dir;
 	//是否活着，删除子弹
@@ -124,6 +122,16 @@ public class Bullet  extends GameObject{
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+ 	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 	
 }

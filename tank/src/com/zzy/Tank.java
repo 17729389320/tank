@@ -14,8 +14,6 @@ import java.util.Random;
  *坦克实体类
  */
 public class Tank extends GameObject {
-	//位置
-	int x, y;
 	//方向
 	Dir dir = Dir.DOWN;
 	int oldX, oldY;
@@ -189,7 +187,15 @@ public class Tank extends GameObject {
 //		tf.e.setX(x);
 //		tf.e.setY(y);
 	}
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
 
+ 	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
 	public Group getGroup() {
 		return group;
 	}

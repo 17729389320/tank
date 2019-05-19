@@ -29,7 +29,6 @@ public class GameModel {
 	private GameModel() {}
 
 	private void init() {
-		System.out.println(999);
 		// 初始化主战坦克
 		myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
 
@@ -37,7 +36,6 @@ public class GameModel {
 
 		// 初始化敌方坦克
 		for (int i = 0; i < initTankCount; i++) {
-			System.out.println(888);
 			new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD);
 		}
 
